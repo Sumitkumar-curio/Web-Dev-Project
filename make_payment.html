@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment - 13th Asian Symposium on Intense Laser Science</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center; /* Center the total payment */
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Make Payment</h1>
+    
+    <label for="participant-type">Select Participant Type:</label>
+    <select id="participant-type" onchange="showCategoryOptions()">
+        <option value="">-- Select --</option>
+        <option value="international">International</option>
+        <option value="domestic">Domestic</option>
+    </select>
+
+    <div id="category-options" class="hidden">
+        <h2>Registration Options</h2>
+        
+        <div id="international-options" class="hidden">
+            <h3>International Participants</h3>
+            <label for="international-category">Participant Category:</label>
+            <select id="international-category" onchange="showInternationalAccommodationOptions()">
+                <option value="">-- Select --</option>
+                <option value="students">Students & Young Researchers</option>
+                <option value="faculty">Faculty & Senior Researchers</option>
+                <option value="accompanying">Accompanying Person</option>
+            </select>
+            <div id="international-accommodation" class="hidden">
+                <h4>Accommodation:</h4>
+                <p>Cost per night:</p>
+                <ul>
+                    <li>Students & Young Researchers: $125</li>
+                    <li>Faculty & Senior Researchers: $150</li>
+                    <li>Accompanying Person: $75</li>
+                </ul>
+                <label for="nights">Number of Nights:</label>
+                <input type="number" id="nights" min="0" placeholder="Enter number of nights">
+            </div>
+        </div>
+
+        <div id="domestic-options" class="hidden">
+            <h3>Domestic Participants</h3>
+            <label for="domestic-category">Participant Category:</label>
+            <select id="domestic-category" onchange="showDomesticOptions()">
+                <option value="">-- Select --</option>
+                <option value="students">Students & Young Researchers</option>
+                <option value="faculty">Faculty & Senior Researchers</option>
+                <option value="accompanying">Accompanying Person</option>
+            </select>
+            <div id="domestic-accommodation" class="hidden">
+                <h4>Accommodation:</h4>
+                <p>Cost per night: ₹5,000</p>
+                <label for="domestic-nights">Number of Nights:</label>
+                <input type="number" id="domestic-nights" min="0" placeholder="Enter number of nights">
+            </div>
+        </div>
+    </div>
+
+    <!-- Check Total Button -->
+    <button id="check-total" class="hidden" onclick="calculateTotal()">Check Total</button>
+
+    <div class="total" id="total-payment"></div>
+
+    <!-- Hidden input for the total amount -->
+    <input type="hidden" id="amount-to-pay">
+
+    <!-- Pay Now Button -->
+    <button id="pay-now" class="hidden" onclick="payNow()">Pay Now</button>
+</div>
+
+<script>
+    function showCategoryOptions() {
+        const participantType = document.getElementById("participant-type").value;
+        const categoryOptionsDiv = document.getElementById("category-options");
+        const internationalOptions = document.getElementById("international-options");
+        const domesticOptions = document.getElementById("domestic-options");
+
+        // Hide all category options initially
+        categoryOptionsDiv.classList.remove("hidden");
+        internationalOptions.classList.add("hidden");
+        domesticOptions.classList.add("hidden");
+
+        if (participantType === "international") {
+            internationalOptions.classList.remove("hidden");
+        } else if (participantType === "domestic") {
+            domesticOptions.classList.remove("hidden");
+        }
+    }
+
+    function showInternationalAccommodationOptions() {
+        const internationalCategory = document.getElementById("international-category").value;
+        const internationalAccommodationDiv = document.getElementById("international-accommodation");
+
+        // Show accommodation options for Students & Young Researchers and Faculty & Senior Researchers
+        if (internationalCategory === "students" || internationalCategory === "faculty") {
+            internationalAccommodationDiv.classList.remove("hidden");
+        } else if (internationalCategory === "accompanying") {
+            internationalAccommodationDiv.classList.remove("hidden");
+        } else {
+            internationalAccommodationDiv.classList.add("hidden");
+        }
+
+        // Calculate total when a category is selected
+        calculateTotal();
+    }
+
+    function showDomesticOptions() {
+        const domesticCategory = document.getElementById("domestic-category").value;
+        const domesticAccommodationDiv = document.getElementById("domestic-accommodation");
+
+        // Show accommodation options only for accompanying persons
+        if (domesticCategory === "accompanying") {
+            domesticAccommodationDiv.classList.remove("hidden");
+        } else {
+            domesticAccommodationDiv.classList.add("hidden");
+        }
+        
+        // Calculate total if a category is selected
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        const participantType = document.getElementById("participant-type").value;
+        const internationalCategory = document.getElementById("international-category").value;
+        const domesticCategory = document.getElementById("domestic-category").value;
+        const nightsInternational = parseInt(document.getElementById("nights").value) || 0; // Default to 0 if empty
+        const nightsDomestic = parseInt(document.getElementById("domestic-nights").value) || 0; // Default to 0 if empty
+        let total = 0;
+
+        if (participantType === "international") {
+            // Calculate registration fee based on category
+            if (internationalCategory === "students") {
+                total += 300; // Early Bird registration fee
+                total += nightsInternational * 125; // Accommodation cost
+            } else if (internationalCategory === "faculty") {
+                total += 500; // Early Bird registration fee
+                total += nightsInternational * 150; // Accommodation cost
+            } else if (internationalCategory === "accompanying") {
+                total += 0; // No registration charge
+                total += nightsInternational * 75; // Accommodation cost for accompanying person
+            }
+        } else if (participantType === "domestic") {
+            // Calculate registration fee based on category
+            if (domesticCategory === "students") {
+                total += 25000; // Early Bird registration fee (includes accommodation)
+            } else if (domesticCategory === "faculty") {
+                total += 35000; // Early Bird registration fee (includes accommodation)
+            } else if (domesticCategory === "accompanying") {
+                total += 0; // No registration charge
+                total += nightsDomestic * 5000; // Accommodation cost for accompanying person
+            }
+        }
+
+        // Update the total payment display and hidden input
+        const totalPaymentText = total > 0 ? `Total Payment: ${participantType === "international" ? "$" : "₹"}${total}` : "";
+        document.getElementById("total-payment").innerText = totalPaymentText;
+        document.getElementById("amount-to-pay").value = total; // Set the hidden amount
+
+        // Show Pay Now button only if total is valid
+        const payNowButton = document.getElementById("pay-now");
+        if (total > 0) {
+            payNowButton.classList.remove("hidden");
+        } else {
+            payNowButton.classList.add("hidden");
+        }
+    }
+
+    function payNow() {
+        const amount = document.getElementById("amount-to-pay").value;
+        const participantType = document.getElementById("participant-type").value;
+
+        // Redirect to the payment merchant URL with the total amount
+        const merchantURL = "https://www.yourmerchantlink.com/pay?amount=" + encodeURIComponent(amount) + "&type=" + encodeURIComponent(participantType);
+        window.location.href = merchantURL; // Redirect to merchant
+    }
+
+    // Add event listener for Enter key press on the input field
+    document.getElementById("nights").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            calculateTotal(); // Call the calculateTotal function when Enter is pressed
+        }
+    });
+
+    document.getElementById("domestic-nights").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            calculateTotal(); // Call the calculateTotal function when Enter is pressed
+        }
+    });
+</script>
+
+</body>
+</html>

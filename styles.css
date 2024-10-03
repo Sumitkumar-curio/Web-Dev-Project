@@ -1,0 +1,462 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Combined Header and Navigation Styles */
+header {
+    background-color: rgba(61, 61, 92, 0.9); /* Partially transparent background color */
+    color: white;
+    padding: 10px 0; /* Padding for header */
+    text-align: center;
+    position: fixed; /* Keep the header fixed */
+    top: 0; /* Position it at the top */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+/* Navigation Styles */
+nav {
+    background-color: rgba(61, 61, 92, 0.9); /* Match navigation background with header */
+    /* Removed margin-top to combine visually with the header */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the navigation items */
+}
+
+nav li {
+    margin: 0 10px; /* Space between navigation items */
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px; /* Padding for better fit */
+    display: block;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Change this for hover effect */
+}
+
+/* Body Padding */
+body {
+    padding-top: 140px; /* Adjust this value based on the height of the combined header and nav */
+}
+
+/* Alert Notification Container */
+.alert-notification {
+    position: relative;
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 18px;
+    padding: 15px;
+    text-align: center;
+    margin-top: 10px; /* Space between alert and other elements */
+}
+
+/* Blinking "New!" Text */
+.blink {
+    position: absolute;
+    left: 10px; /* Fixed at the left */
+    top: 50%; /* Vertically centered */
+    transform: translateY(-50%);
+    font-weight: bold;
+    animation: blink-animation 0.5s steps(1, end) infinite; /* Fast continuous blinking */
+    background-color: #ff4d4d; /* To avoid overlapping with the scrolling text */
+    padding-right: 10px;
+    z-index: 2; /* Ensure it is on top of the marquee */
+}
+
+@keyframes blink-animation {
+    0% { opacity: 1; } /* Visible */
+    50% { opacity: 0; } /* Invisible */
+    100% { opacity: 1; } /* Visible again */
+}
+
+/* Marquee Container */
+.marquee-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Moving Marquee Text */
+.marquee {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: scroll-text 20s linear infinite; /* Smooth continuous scrolling */
+}
+
+.marquee span {
+    display: inline-block;
+    padding-right: 100px; /* Space between repeated text */
+    font-weight: bold;
+}
+
+/* Keyframes for Scrolling Text */
+@keyframes scroll-text {
+    0% {
+        transform: translateX(100%); /* Start from the right */
+    }
+    100% {
+        transform: translateX(-100%); /* Move to the left */
+    }
+}
+
+
+/* Alert Notification Container */
+.alert-notification {
+    position: relative;
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 18px;
+    padding: 15px;
+    text-align: center;
+    margin-top: 5px; /* Space between alert and other elements */
+}
+
+/* Blinking "New!" Text */
+.blink {
+    position: absolute;
+    left: 10px; /* Fixed at the left */
+    top: 50%; /* Vertically centered */
+    transform: translateY(-50%);
+    font-weight: bold;
+    animation: blink-animation 0.5s steps(1, end) infinite; /* Fast continuous blinking */
+    background-color: #ff4d4d; /* To avoid overlapping with the scrolling text */
+    padding-right: 10px;
+    z-index: 2; /* Ensure it is on top of the marquee */
+}
+
+@keyframes blink-animation {
+    0% { opacity: 1; } /* Visible */
+    50% { opacity: 0; } /* Invisible */
+    100% { opacity: 1; } /* Visible again */
+}
+
+/* Marquee Container */
+.marquee-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Moving Marquee Text */
+.marquee {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: scroll-text 30s linear infinite; /* Smooth continuous scrolling */
+}
+
+.marquee span {
+    display: inline-block;
+    padding-right: 100px; /* Space between repeated text */
+    font-weight: bold;
+}
+
+/* Keyframes for Scrolling Text */
+@keyframes scroll-text {
+    0% {
+        transform: translateX(100%); /* Start from the right */
+    }
+    100% {
+        transform: translateX(-100%); /* Move to the left */
+    }
+}
+
+
+/* Slider Styling */
+.slider {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slides img {
+    width: 100%;
+    display: block;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* About Section */
+#about, #dates, #speakers, #registration, #abstract-submission {
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* Table Styling */
+.topics-table, .speakers-table, .registration-table, .abstract-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.topics-table td, .speakers-table td, .registration-table td, .abstract-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.topics-table tr:nth-child(even), .speakers-table tr:nth-child(even), 
+.registration-table tr:nth-child(even), .abstract-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Button Styling */
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+/* Abstract Submission Section Styles */
+#abstract-submission {
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for contrast */
+    border: 1px solid #ddd; /* Light border for separation */
+    border-radius: 5px; /* Rounded corners */
+    margin: 20px 0; /* Margin for spacing */
+}
+
+#abstract-submission h2 {
+    color: #333; /* Dark text for headers */
+    margin-bottom: 15px; /* Space below header */
+}
+
+.abstract-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0; /* Space around the table */
+}
+
+.abstract-table th, .abstract-table td {
+    border: 1px solid #ddd; /* Light border for table cells */
+    padding: 10px; /* Padding for table cells */
+    text-align: left; /* Align text to the left */
+}
+
+/* Button Styles */
+.btn {
+    background-color: #4CAF50; /* Button background color */
+    color: white; /* Button text color */
+    padding: 10px 15px; /* Button padding */
+    text-decoration: none; /* Remove underline from links */
+    border-radius: 5px; /* Rounded corners for buttons */
+    width: 200px; /* Set a fixed width for both buttons */
+    text-align: center; /* Center text inside the button */
+    display: inline-block; /* Ensure block-level styling for width */
+}
+
+.btn:hover {
+    background-color: #45a049; /* Darker button color on hover */
+}
+/* Registration Section */
+
+
+#registration {
+    padding: 20px;
+}
+
+#registration table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+#registration th, #registration td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.registration-buttons a {
+    text-decoration: none; /* Remove underline from the link */
+}
+
+.make-payment {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px 15px; /* Padding for the button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.make-payment:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}
+
+.registration-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.make-payment, .register {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Change this to your preferred color */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.make-payment:hover, .register:hover {
+    background-color: #45a049; /* Change this for hover effect */
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column; /* Stack the items vertically on mobile */
+        align-items: center; /* Center items */
+    }
+
+    .registration-buttons {
+        flex-direction: column; /* Stack buttons vertically on mobile */
+        align-items: center; /* Center buttons */
+    }
+
+    .make-payment, .register {
+        width: 100%; /* Full width for buttons on mobile */
+        margin: 5px 0; /* Space between buttons */
+    }
+}
+
+
+
+/* Speakers Section */
+.speakers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between boxes */
+    margin: 20px 0;
+}
+
+.speaker-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.speaker-box h3 {
+    font-size: 1.5rem; /* Large font for names */
+    margin: 0 0 5px; /* Margin below name */
+    font-weight: bold; /* Bold font */
+}
+
+.speaker-box p {
+    font-size: 0.9rem; /* Smaller font for affiliation */
+    margin: 0; /* No margin */
+}
+
+/* Committees Section */
+.committees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between boxes */
+    margin: 20px 0;
+}
+
+.committee-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.committee-box h3 {
+    font-size: 1.5rem; /* Large font for names */
+    margin: 0 0 5px; /* Margin below name */
+    font-weight: bold; /* Bold font */
+}
+
+.committee-box p {
+    font-size: 0.9rem; /* Smaller font for affiliation */
+    margin: 0; /* No margin */
+}
+
+/* Venue, Travel, and Contact Section */
+#venue-travel-contact {
+    padding: 20px;
+    background-color: #fff;
+}
+
+#venue-travel-contact h2 {
+    margin-top: 20px;
+    font-size: 1.8rem; /* Increase heading size */
+}
+
+#venue-travel-contact h3 {
+    margin-top: 15px; /* Spacing for subheadings */
+}
+
+#venue-travel-contact p,
+#venue-travel-contact ul {
+    margin: 10px 0; /* Add margin for paragraphs and lists */
+}
+
+#venue-travel-contact address {
+    font-style: normal; /* Normal style for address */
+    margin: 0; /* Remove margin for address */
+}
+
+#venue-travel-contact ul {
+    list-style-type: disc; /* Add bullet points */
+    padding-left: 20px; /* Indent the list */
+}
+
+
+
+
+/* Footer Section */
+footer {
+    background-color: #3d3d5c;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
